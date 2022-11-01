@@ -22,3 +22,5 @@ serve dist
 ```
 
 if you want to know more about Yew.rs check their website: [yew.rs](https://yew.rs/).
+
+**to view a working demo visit** [yew-finace app](https://yew-finance-app.netlify.app/)
