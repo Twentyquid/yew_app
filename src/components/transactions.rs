@@ -1,11 +1,17 @@
 use yew::prelude::*;
+use crate::components::*;
+
+pub struct TransactionDetails {
+    title: String,
+    expense: f32,
+}
 
 pub enum Msg {
     AddOne,
 }
 
 pub struct Transactions {
-    value: i64,
+    values: Vec<TransactionDetails>,
 }
 
 impl Component for Transactions {
@@ -14,7 +20,20 @@ impl Component for Transactions {
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            value: 0,
+            values: vec![
+                TransactionDetails {
+                    title: String::from("Food & Driks"),
+                    expense: 12.00,
+                },
+                TransactionDetails {
+                    title: String::from("Petrol"),
+                    expense: 20.00,
+                },
+                TransactionDetails {
+                    title: String::from("Insurance"),
+                    expense: 50.00,
+                }
+            ]
         }
     }
 
@@ -22,23 +41,14 @@ impl Component for Transactions {
         html! {
             <div class="w-full mt-4">
                 <h3 class="text-xl font-semibold text-gray-800 mb-4">{"Transactions"}</h3>
-                <div>
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center space-x-3">
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"/><path d="M15.5 2a3.5 3.5 0 0 1 3.437 4.163l-.015.066a4.502 4.502 0 0 1 .303 8.428l-1.086 6.507a1 1 0 0 1-.986.836H6.847a1 1 0 0 1-.986-.836l-1.029-6.17a3 3 0 0 1-.829-5.824L4 9a6 6 0 0 1 8.574-5.421A3.496 3.496 0 0 1 15.5 2zM9 15H6.86l.834 5H9v-5zm4 0h-2v5h2v-5zm4.139 0H15v5h1.305l.834-5zM10 5C7.858 5 6.109 6.684 6.005 8.767L6 8.964l.003.17a2 2 0 0 1-1.186 1.863l-.15.059A1.001 1.001 0 0 0 5 13h12.5a2.5 2.5 0 1 0-.956-4.81l-.175.081a2 2 0 0 1-2.663-.804l-.07-.137A4 4 0 0 0 10 5zm5.5-1a1.5 1.5 0 0 0-1.287.729 6.006 6.006 0 0 1 1.24 1.764c.444-.228.93-.384 1.446-.453A1.5 1.5 0 0 0 15.5 4z"/></svg>
-                            </div>
-                            <div>
-                                <p class="font-semibold">{"Food & Drink"}</p>
-                                <p class="text-sm text-gray-500">{"10/10/2022 06:30"}</p>
-                            </div>
-                            
-                        </div>
-                        <div>
-                            <p class="text-indigo-500 text-lg font-semibold">{"$50.20"}</p>
-                        </div>
-                    </div>
-                </div>
+                {
+                    self.values.iter().map(|item| {
+                        html! {
+                            <transaction_card::TransactionCard title={item.title.clone()} expense={item.expense} />
+                        }
+                    }).collect::<Vec<Html>>()
+                }
+                // <transaction_card::TransactionCard />
             </div>
         }
     }
