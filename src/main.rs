@@ -1,19 +1,31 @@
 use yew::prelude::*;
+use yew_router::prelude::*;
 pub use yewapp_v2::components::*;
+use yewapp_v2::*;
 
-#[function_component(Model)]
-fn model() -> Html {
+
+
+fn switch(routes: &Route) -> Html {
+    match routes {
+        Route::Home => html! { <mainpage::MainPage /> },
+        Route::Bank => html! { <h1 class="text-2xl">{"This is the bank page"}</h1>},
+        Route::Withdraw => html! { <h1 class="text-2xl">{"This is the withdraw page"}</h1>},
+        Route::Deposit => html! { <h1 class="text-2xl">{"This is the deposit page"}</h1>},
+        Route::NotFound => html! { <h1 class="text-2xl">{"Page Not Found"}</h1> },
+    }
+}
+
+#[function_component(App)]
+fn app() -> Html {
      html! {
-            <div class="min-h-screen bg-white px-5 py-4 max-w-md mx-auto">
-                <titlebar::Titlebar />
-                <card::Card current_balance={12_000.50} last_balance={10_000.00} />
-                <features::Features />
-                <portfolios::Portfolios />
-                <transactions::Transactions />
+           <BrowserRouter>
+            <div class="min-h-screen bg-white max-w-md">
+                <Switch<Route> render={Switch::render(switch)} />
             </div>
+            </BrowserRouter>
         }
 }
 
 fn main() {
-    yew::start_app::<Model>();
+    yew::start_app::<App>();
 }

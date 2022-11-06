@@ -5,3 +5,4 @@ pub mod portfoliocard;
 pub mod portfolios;
 pub mod transactions;
 pub mod transaction_card;
+pub mod mainpage;
